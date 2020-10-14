@@ -1,0 +1,4 @@
+Korolov,Pushkinskaya,7,10
+Korolov,Pushkinskaya,8,10
+Korolov
+Mayakovskogo
