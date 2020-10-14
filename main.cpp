@@ -12,33 +12,77 @@
 #include <iostream>
 #include "Address.h"
 
+bool CheckFormat(std::string &str){
+    int position = 0;
+    while(str[position] != ',' && position < str.length()){
+        position += 1;
+    }
+    if(position == str.length()){
+        return false;
+    }
+    position += 1;
+    while(str[position] != ',' && position < str.length()){
+        position += 1;
+    }
+    if(position == str.length()){
+        return false;
+    }
+    position += 1;
+    while(str[position] != ',' && position < str.length()){
+        if(str[position] < '0' || str[position] > '9'){
+            return false;
+        }
+        position += 1;
+    }
+    if(position == str.length()){
+        return false;
+    }
+    position += 1;
+    while(position != str.length()){
+        if(str[position] < '0' || str[position] > '9'){
+            return false;
+        }
+        position += 1;
+    }
+    return true;
+}
+
 int main() {
-    std::cout << "test literal address:" << "A,B,1,1"_address << "\n";
-    std::cout << "input address in \"city,street,house,apartment\"\n";
+    std::cout << "test literal address:" << "Here's city name,Here's street name,12,34"_address << "\n";
+    std::cout << "input address in \"city,street,house,apartment\" format\n";
     std::string currentStr;
     std::cout << "insert address1:";
-    std::cin >> currentStr;
+    std::getline(std::cin, currentStr);
+    if (!CheckFormat(currentStr)){
+        std::cout << "invalid format\n";
+        return 0;
+    };
     Address address1(currentStr);
     std::cout << "insert address2:";
-    std::cin >> currentStr;
+    std::getline(std::cin, currentStr);
+    if (!CheckFormat(currentStr)){
+        std::cout << "invalid format\n";
+        return 0;
+    };
     Address address2(currentStr);
     std::cout << "address1 is ";
     address1.print();
     std::cout << "\n";
     std::cout << "address2 is ";
     address2.print();
+    std::cout << "\n";
     std::string locationCity;
-    std::cout << "insert city name for location of address1 and address2";
-    std::cin >> locationCity;
+    std::cout << "insert city name for location of address1 and address2:";
+    std::getline(std::cin, locationCity);
     std::cout << "is address1 located in this city? " << (address1.IsOnThisCity(locationCity) ? "YES" : "NO") << "\n";
     std::cout << "is address2 located in this city? " << (address2.IsOnThisCity(locationCity) ? "YES" : "NO") << "\n";
     std::string locationStreet;
-    std::cout << "insert street name for location of address1 and address2";
-    std::cin >> locationStreet;
-    std::cout << "is address1 located in this street? " << (address1.IsOnThisStreet(locationStreet, locationStreet) ? "YES" : "NO") << "\n";
-    std::cout << "is address2 located in this street " << (address2.IsOnThisStreet(locationStreet, locationStreet) ? "YES" : "NO") << "\n";
+    std::cout << "insert street name for location of address1 and address2:";
+    std::getline(std::cin, locationStreet);
+    std::cout << "is address1 located on this street? " << (address1.IsOnThisStreet(locationCity, locationStreet) ? "YES" : "NO") << "\n";
+    std::cout << "is address2 located on this street? " << (address2.IsOnThisStreet(locationCity, locationStreet) ? "YES" : "NO") << "\n";
     std::cout << "\n";
-    std::cout << "is address1 and address2 are neighbors? " << (address1 == address2 ? "YES" : "NO") << "\n";
+    std::cout << "is address1 and address2 are neighbors? " << (address1 & address2 ? "YES" : "NO") << "\n";
     std::cout << "is address1 == address2? " << (address1 == address2 ? "YES" : "NO") << "\n";
     std::cout << "is address1 != address2? " << (address1 != address2 ? "YES" : "NO") << "\n";
     std::cout << "is address1 < address2? " << (address1 < address2 ? "YES" : "NO") << "\n";
