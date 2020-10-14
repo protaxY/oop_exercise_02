@@ -19,10 +19,10 @@
 
 class Address{
     private:
-        std::string CityName;
-        std::string StreetName;
-        unsigned int HouseNumber;
-        unsigned int ApartmentNumber;
+        std::string CityName = "";
+        std::string StreetName = "";
+        unsigned int HouseNumber = 0;
+        unsigned int ApartmentNumber = 0;
         std::string IgnoreRegister(const std::string str);
     public:
         Address(const std::string &city, const std::string &street, const unsigned int &houseNum, const unsigned int &apartmentNum);
@@ -43,4 +43,4 @@ class Address{
 
 const Address operator"" _address(const char* str, size_t size);
 
-#endif //OOP_EXERCISE_02_ADDRESS_H
+#endif
