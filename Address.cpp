@@ -9,7 +9,6 @@
 //в виде перегрузки оператора &.
 //Необходимо реализовать пользовательский литерал для работы с константами типа Address.
 
-
 #include "Address.h"
 
 Address::Address(const std::string &city, const std::string &street, const unsigned int &houseNum, const unsigned int &apartmentNum){
@@ -19,31 +18,30 @@ Address::Address(const std::string &city, const std::string &street, const unsig
     ApartmentNumber = apartmentNum;
 }
 Address::Address(const std::string &str){
-    int position = 0;
-    std::string city;
-    while(str[position] != ','){
-        city += str[position];
+        int position = 0;
+        while(str[position] != ',' && position < str.length()){
+            CityName += str[position];
+            position += 1;
+        }
         position += 1;
-    }
-    position += 1;
-    std::string street;
-    while(str[position] != ','){
-        street += str[position];
+        while(str[position] != ',' && position < str.length()){
+            StreetName += str[position];
+            position += 1;
+        }
         position += 1;
-    }
-    std::string homeStr;
-    while(str[position] != ','){
-        homeStr += str[position];
+        std::string homeStr;
+        while(str[position] != ',' && position < str.length()){
+            homeStr += str[position];
+            position += 1;
+        }
+        HouseNumber = std::stoi(homeStr);
         position += 1;
-    }
-    int home = std::stoi(homeStr);
-    std::string apartmentStr;
-    while(position != str.length()){
-        apartmentStr += str[position];
-        position += 1;
-    }
-    int apartment = std::stoi(apartmentStr);
-    Address result(city, street, home, apartment);
+        std::string apartmentStr;
+        while(position != str.length()){
+            apartmentStr += str[position];
+            position += 1;
+        }
+        ApartmentNumber = std::stoi(apartmentStr);
 }
 std::string Address::IgnoreRegister(const std::string str){
     for (int i = 0; i < str.length(); ++i){
